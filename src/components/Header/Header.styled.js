@@ -13,22 +13,24 @@ export const StyledHeader = styled.header`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  border-bottom: ${borderSize} solid black;
 `;
 
 export const StyledButton = styled.button`
-  flex-grow: 1;
+  width: 100%;
   cursor: pointer;
-  position: relative;
+  margin: 10px;
   padding: calc(${space} / 1.125) ${space}, ${space};
   border: ${borderSize} solid black;
-  color: ${colorSecondary};
-  background-color: ${colorPrimary};
+  color: ${({ isSelected }) => (isSelected ? colorPrimary : colorSecondary)};
+  background-color: ${({ isSelected }) =>
+    isSelected ? colorSecondary : colorPrimary};
   font-size: 1.5rem;
   font-family: ${fontFamily};
   text-transform: lowercase;
   text-shadow: ${shadow} 2px 2px;
-  transition: flex-grow ${duration} ${ease};
-  margin: 10px;
+
+  flex-grow: 1;
 
   &:hover,
   :focus {
@@ -44,28 +46,22 @@ export const StyledButton = styled.button`
     outline-offset: calc(${borderSize} * -3);
   }
 
-  &:nth-child(n + 3) {
+  &:nth-child(n + 4) {
     display: none;
   }
 
-  @media (min-width: 900px) {
-    &:nth-child(n) {
-      display: block;
-    }
-  }
-`;
-
-export const StyledButtonMore = styled(StyledButton)`
-  display: block;
-
-  &:nth-child(n + 3) {
+  &:last-child {
     display: block;
   }
 
   @media (min-width: 900px) {
-    display: none;
+    position: relative;
 
-    &:nth-child(n + 3) {
+    &:nth-child(n + 4) {
+      display: block;
+    }
+
+    &:last-child {
       display: none;
     }
   }

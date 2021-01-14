@@ -11,7 +11,7 @@ const modalSlice = createSlice({
   reducers: {
     toggleModal: (state, action) => {
       const { name, isOpen } = action.payload;
-      debugger;
+
       if (name === '') {
         state.name = name;
         state.isOpen = isOpen;

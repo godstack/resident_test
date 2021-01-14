@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { GlobalStyles } from './GlobalStyles';
+import { Header } from 'components/Header/Header.component';
+import { toggleModal } from 'redux/slices/modalSlice/slice';
 
 function App() {
+  const dispatch = useDispatch();
+
+  const handleCloseModal = () => {
+    dispatch(toggleModal({ name: '', isOpen: false }));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div onClick={handleCloseModal}>
+      <GlobalStyles />
+      <Header />
+      lol
     </div>
   );
 }

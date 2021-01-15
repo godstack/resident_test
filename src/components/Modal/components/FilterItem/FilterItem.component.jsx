@@ -6,12 +6,8 @@ import {
   Icon,
   FilterItemBody
 } from './FilterItem.styled';
-import {
-  ModalButtonsWrapper,
-  ModalButton,
-  ApplyButton
-} from '../../Modal.styled';
-import { selectInternalFilter } from '../../utilsFunctions';
+import { ApplyButton } from '../../Modal.styled';
+import { ButtonsBlock } from '../ButtonsBlock/ButtonsBlock.component';
 import { setSelectedFilters } from 'redux/slices/filtersSlice/slice';
 
 export const FilterItem = ({ filterName, options, selectedFilters }) => {
@@ -39,25 +35,12 @@ export const FilterItem = ({ filterName, options, selectedFilters }) => {
 
       {isOpen && (
         <FilterItemBody>
-          <ModalButtonsWrapper>
-            {options?.map(item => (
-              <ModalButton
-                key={item.id}
-                onClick={() =>
-                  setInternalSelectedFilters(
-                    selectInternalFilter(item, internalSelectedFilters)
-                  )
-                }
-                isSelected={
-                  !!internalSelectedFilters.find(
-                    filter => filter.id === item.id
-                  )
-                }
-              >
-                {item.title}
-              </ModalButton>
-            ))}
-          </ModalButtonsWrapper>
+          <ButtonsBlock
+            buttonsArray={options}
+            internalSelectedFilters={internalSelectedFilters}
+            setInternalSelectedFilters={setInternalSelectedFilters}
+          />
+
           <ApplyButton
             onClick={() =>
               handleApplyFilters(filterName, internalSelectedFilters)

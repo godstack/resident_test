@@ -2,15 +2,9 @@ import React, { useState, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedFilters } from 'redux/slices/filtersSlice/slice';
 import { toggleModal } from 'redux/slices/modalSlice/slice';
-import {
-  StyledModal,
-  ModalButton,
-  ModalButtonsWrapper,
-  ApplyButton,
-  CancelButton
-} from './Modal.styled';
+import { StyledModal, ApplyButton, CancelButton } from './Modal.styled';
 import { FilterItem } from './components/FilterItem/FilterItem.component';
-import { selectInternalFilter } from './utilsFunctions';
+import { ButtonsBlock } from './components/ButtonsBlock/ButtonsBlock.component';
 
 const Modal = ({ isOpen, name, selectedFilters }) => {
   const dispatch = useDispatch();
@@ -41,23 +35,11 @@ const Modal = ({ isOpen, name, selectedFilters }) => {
   const renderForDesktop = () => {
     return (
       <>
-        <ModalButtonsWrapper>
-          {filterItems?.map(item => (
-            <ModalButton
-              key={item.id}
-              onClick={() =>
-                setInternalSelectedFilters(
-                  selectInternalFilter(item, internalSelectedFilters)
-                )
-              }
-              isSelected={
-                !!internalSelectedFilters.find(filter => filter.id === item.id)
-              }
-            >
-              {item.title}
-            </ModalButton>
-          ))}
-        </ModalButtonsWrapper>
+        <ButtonsBlock
+          buttonsArray={filterItems}
+          internalSelectedFilters={internalSelectedFilters}
+          setInternalSelectedFilters={setInternalSelectedFilters}
+        />
 
         <CancelButton onClick={() => dispatch(toggleModal({ isOpen: false }))}>
           Cancel

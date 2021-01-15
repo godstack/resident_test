@@ -6,8 +6,11 @@ import {
   StyledModal,
   ModalButton,
   ModalButtonsWrapper,
-  ApplyButton
+  ApplyButton,
+  CancelButton
 } from './Modal.styled';
+import { FilterItem } from './components/FilterItem/FilterItem.component';
+import { selectInternalFilter } from './utilsFunctions';
 
 const Modal = ({ isOpen, name, selectedFilters }) => {
   const dispatch = useDispatch();
@@ -21,28 +24,14 @@ const Modal = ({ isOpen, name, selectedFilters }) => {
     if (name !== 'more filters' && name) {
       const [, value] = entries.find(([key]) => key === name);
       return value;
+    } else {
+      return entries.slice(2);
     }
-
-    return null;
   });
 
   if (!isOpen) {
     return null;
   }
-
-  const selectInternalFilter = option => {
-    let tempArr = [...internalSelectedFilters];
-
-    const isExist = !!tempArr.find(item => item.id === option.id);
-
-    if (isExist) {
-      tempArr = tempArr.filter(item => item.id !== option.id);
-    } else {
-      tempArr = [...tempArr, option];
-    }
-
-    setInternalSelectedFilters(tempArr);
-  };
 
   const handleApplyFilters = (filterName, filters) => {
     dispatch(setSelectedFilters({ filterName, filters }));
@@ -56,7 +45,11 @@ const Modal = ({ isOpen, name, selectedFilters }) => {
           {filterItems?.map(item => (
             <ModalButton
               key={item.id}
-              onClick={() => selectInternalFilter(item)}
+              onClick={() =>
+                setInternalSelectedFilters(
+                  selectInternalFilter(item, internalSelectedFilters)
+                )
+              }
               isSelected={
                 !!internalSelectedFilters.find(filter => filter.id === item.id)
               }
@@ -66,6 +59,9 @@ const Modal = ({ isOpen, name, selectedFilters }) => {
           ))}
         </ModalButtonsWrapper>
 
+        <CancelButton onClick={() => dispatch(toggleModal({ isOpen: false }))}>
+          Cancel
+        </CancelButton>
         <ApplyButton
           onClick={() => handleApplyFilters(name, internalSelectedFilters)}
         >
@@ -75,10 +71,25 @@ const Modal = ({ isOpen, name, selectedFilters }) => {
     );
   };
 
+  const renderForMobile = () => {
+    return (
+      <div>
+        {filterItems.map(([key, value]) => (
+          <FilterItem
+            key={key}
+            filterName={key}
+            options={value}
+            selectedFilters={selectedFilters[key]}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <StyledModal onClick={e => e.stopPropagation()}>
       <h2>{name}</h2>
-      {name === 'more filters' ? null : renderForDesktop()}
+      {name === 'more filters' ? renderForMobile() : renderForDesktop()}
     </StyledModal>
   );
 };

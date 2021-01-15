@@ -47,7 +47,7 @@ export const StyledButton = styled.button`
 
   &:hover,
   :focus {
-    flex-grow: 1.5;
+    /* flex-grow: 1.5; */
     color: ${colorPrimary};
     outline: none;
     text-shadow: none;

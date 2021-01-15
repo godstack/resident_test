@@ -11,7 +11,7 @@ export const StyledModal = styled.section`
   border: 0.125rem solid black;
 
   @media (min-width: 900px) {
-    top: 83px;
+    top: 78px;
   }
 `;
 
@@ -85,5 +85,20 @@ export const ApplyButton = styled(ModalButton)`
   }
 
   right: 20px;
+  bottom: 20px;
+`;
+
+export const CancelButton = styled(ApplyButton)`
+  color: red;
+
+  &:hover {
+    background-color: orange;
+  }
+
+  &:after {
+    border: 0.125rem dashed orange;
+  }
+
+  left: 20px;
   bottom: 20px;
 `;

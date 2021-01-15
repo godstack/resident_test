@@ -17,20 +17,33 @@ export const StyledHeader = styled.header`
 `;
 
 export const StyledButton = styled.button`
-  width: 100%;
   cursor: pointer;
+  position: relative;
   margin: 10px;
   padding: calc(${space} / 1.125) ${space}, ${space};
   border: ${borderSize} solid black;
   color: ${({ isSelected }) => (isSelected ? colorPrimary : colorSecondary)};
   background-color: ${({ isSelected }) =>
     isSelected ? colorSecondary : colorPrimary};
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-family: ${fontFamily};
   text-transform: lowercase;
   text-shadow: ${shadow} 2px 2px;
-
+  transition: flex-grow ${duration} ${ease};
   flex-grow: 1;
+
+  &::after {
+    content: '';
+    display: ${({ isSelected }) => (isSelected ? 'block' : 'none')};
+    left: calc(50% - 20px);
+    bottom: -35px;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid black;
+  }
 
   &:hover,
   :focus {
@@ -46,7 +59,7 @@ export const StyledButton = styled.button`
     outline-offset: calc(${borderSize} * -3);
   }
 
-  &:nth-child(n + 4) {
+  &:nth-child(n + 3) {
     display: none;
   }
 
@@ -56,8 +69,9 @@ export const StyledButton = styled.button`
 
   @media (min-width: 900px) {
     position: relative;
+    font-size: 1.3rem;
 
-    &:nth-child(n + 4) {
+    &:nth-child(n + 3) {
       display: block;
     }
 

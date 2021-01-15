@@ -12,16 +12,15 @@ const modalSlice = createSlice({
     toggleModal: (state, action) => {
       const { name, isOpen } = action.payload;
 
-      if (name === '') {
-        state.name = name;
+      if (isOpen === false) {
+        state.name = '';
         state.isOpen = isOpen;
       } else if (state.name !== name) {
         state.name = name;
         state.isOpen = true;
-      } else if (isOpen === null) {
+      } else if (!isOpen && name) {
         state.isOpen = !state.isOpen;
-      } else {
-        state.isOpen = isOpen;
+        state.name = state.isOpen ? name : '';
       }
     }
   }

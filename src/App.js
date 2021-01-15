@@ -9,14 +9,13 @@ function App() {
   const dispatch = useDispatch();
 
   const handleCloseModal = () => {
-    dispatch(toggleModal({ name: '', isOpen: false }));
+    dispatch(toggleModal({ isOpen: false }));
   };
 
   return (
     <StyledApp onClick={handleCloseModal}>
       <GlobalStyles />
       <Header />
-      lol
     </StyledApp>
   );
 }

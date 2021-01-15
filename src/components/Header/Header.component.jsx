@@ -1,17 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleModal } from 'redux/slices/modalSlice/slice';
-import {
-  StyledHeader,
-  StyledButton,
-  StyledButtonWrapper
-} from './Header.styled';
+import { StyledHeader, StyledButton } from './Header.styled';
 import Modal from 'components/Modal/Modal.component';
-import { setSelectedFilter } from 'redux/slices/filtersSlice/slice';
 
 export const Header = () => {
-  const { filtersData } = useSelector(state => state.filters);
-  const { name } = useSelector(state => state.modal);
+  const { filtersData, selectedFilters } = useSelector(state => state.filters);
+  const { name, isOpen } = useSelector(state => state.modal);
 
   const dispatch = useDispatch();
 
@@ -19,7 +14,6 @@ export const Header = () => {
     e.stopPropagation();
 
     dispatch(toggleModal({ name, isOpen }));
-    dispatch(setSelectedFilter(name));
   };
 
   return (
@@ -28,12 +22,13 @@ export const Header = () => {
         {Object.keys(filtersData).map(filterName => (
           <StyledButton
             key={filterName}
-            onClick={e =>
-              handleToggleModal(e, { name: filterName, isOpen: null })
-            }
+            onClick={e => handleToggleModal(e, { name: filterName })}
             isSelected={name === filterName}
           >
-            {filterName}
+            {filterName}{' '}
+            {!!selectedFilters[filterName].length && (
+              <span>({selectedFilters[filterName].length})</span>
+            )}
           </StyledButton>
         ))}
 
@@ -47,7 +42,9 @@ export const Header = () => {
           More filters
         </StyledButton>
       </StyledHeader>
-      <Modal />
+      {name && isOpen && (
+        <Modal selectedFilters={selectedFilters} name={name} isOpen={isOpen} />
+      )}
     </>
   );
 };

@@ -1,19 +1,20 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const borderSize = '0.125rem';
-const duration = '250ms';
-const ease = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
-const fontFamily = 'monospace';
-const colorPrimary = 'white';
-const colorSecondary = 'black';
-const shadow = 'rgba(0, 0, 0, 0.1)';
-const space = '1rem';
+const borderSize = "0.125rem";
+const duration = "250ms";
+const ease = "cubic-bezier(0.215, 0.61, 0.355, 1)";
+const fontFamily = "monospace";
+const colorPrimary = "white";
+const colorSecondary = "black";
+const shadow = "rgba(0, 0, 0, 0.1)";
+const space = "1rem";
 
 export const StyledHeader = styled.header`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   border-bottom: ${borderSize} solid black;
+  position: relative;
 `;
 
 export const StyledButton = styled.button`
@@ -33,8 +34,8 @@ export const StyledButton = styled.button`
   flex-grow: 1;
 
   &::after {
-    content: '';
-    display: ${({ isSelected }) => (isSelected ? 'block' : 'none')};
+    content: "";
+    display: ${({ isSelected }) => (isSelected ? "block" : "none")};
     left: calc(50% - 20px);
     bottom: -35px;
     width: 0;
@@ -69,7 +70,6 @@ export const StyledButton = styled.button`
 
   @media (min-width: 900px) {
     position: relative;
-    font-size: 1.3rem;
 
     &:nth-child(n + 3) {
       display: block;

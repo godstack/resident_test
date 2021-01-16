@@ -1,26 +1,23 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const buttonColor = 'hsl(210, 80%, 42%)';
+const buttonColor = "hsl(210, 80%, 42%)";
 
 export const StyledModal = styled.section`
   position: absolute;
-  top: 70px;
+  top: calc(100% + 22px);
   left: 2.5%;
   padding: 20px 20px 100px;
   width: 95%;
   border: 0.125rem solid black;
-
-  @media (min-width: 900px) {
-    top: 78px;
-  }
+  height: fit-content;
 `;
 
 export const ModalButton = styled.button`
   position: relative;
   padding: 3px 15px;
-  background-color: ${({ isSelected }) => (isSelected ? buttonColor : 'white')};
+  background-color: ${({ isSelected }) => (isSelected ? buttonColor : "white")};
   border: 0.125rem solid
-    ${({ isSelected }) => (isSelected ? 'white' : buttonColor)};
+    ${({ isSelected }) => (isSelected ? "white" : buttonColor)};
   font-size: 1rem;
   margin: 5px;
   cursor: pointer;
@@ -30,7 +27,7 @@ export const ModalButton = styled.button`
 
   &:before,
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     transition: all 0.125s ease-in-out;
     width: 100%;

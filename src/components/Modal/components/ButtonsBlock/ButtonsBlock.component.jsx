@@ -1,15 +1,28 @@
-import React from 'react';
-import { ModalButton, ModalButtonsWrapper } from '../../Modal.styled';
-import { selectInternalFilter } from '../../utilsFunctions';
+import React from "react";
+import { ModalButton, ModalButtonsWrapper } from "../../Modal.styled";
 
 export const ButtonsBlock = ({
   buttonsArray,
   internalSelectedFilters,
-  setInternalSelectedFilters
+  setInternalSelectedFilters,
 }) => {
+  const selectInternalFilter = (option, arr) => {
+    let tempArr = [...arr];
+
+    const isExist = !!tempArr.find((item) => item.id === option.id);
+
+    if (isExist) {
+      tempArr = tempArr.filter((item) => item.id !== option.id);
+    } else {
+      tempArr = [...tempArr, option];
+    }
+
+    return tempArr;
+  };
+
   return (
     <ModalButtonsWrapper>
-      {buttonsArray?.map(item => (
+      {buttonsArray?.map((item) => (
         <ModalButton
           key={item.id}
           onClick={() =>
@@ -18,7 +31,7 @@ export const ButtonsBlock = ({
             )
           }
           isSelected={
-            !!internalSelectedFilters.find(filter => filter.id === item.id)
+            !!internalSelectedFilters.find((filter) => filter.id === item.id)
           }
         >
           {item.title}

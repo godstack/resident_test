@@ -1,21 +1,32 @@
-import React, { useState, memo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedFilters } from 'redux/slices/filtersSlice/slice';
-import { toggleModal } from 'redux/slices/modalSlice/slice';
-import { StyledModal, ApplyButton, CancelButton } from './Modal.styled';
-import { FilterItem } from './components/FilterItem/FilterItem.component';
-import { ButtonsBlock } from './components/ButtonsBlock/ButtonsBlock.component';
+import React, { useState, useEffect, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedFilters } from "redux/slices/filtersSlice/slice";
+import { toggleModal } from "redux/slices/modalSlice/slice";
+import { StyledModal, ApplyButton, CancelButton } from "./Modal.styled";
+import { FilterItem } from "./components/FilterItem/FilterItem.component";
+import { ButtonsBlock } from "./components/ButtonsBlock/ButtonsBlock.component";
 
-const Modal = ({ isOpen, name, selectedFilters }) => {
+const Modal = () => {
   const dispatch = useDispatch();
+
+  const { isOpen, name } = useSelector((state) => state.modal);
+  const { selectedFilters } = useSelector((state) => state.filters);
+
   const [internalSelectedFilters, setInternalSelectedFilters] = useState(
     selectedFilters[name]
   );
 
-  const filterItems = useSelector(state => {
+  useEffect(() => {
+    setInternalSelectedFilters(selectedFilters[name]);
+  }, [selectedFilters, name]);
+
+  console.log("internalSelectedFilters", internalSelectedFilters);
+  console.log("selectedFilters[name]", selectedFilters[name]);
+
+  const filterItems = useSelector((state) => {
     const entries = Object.entries(state.filters.filtersData);
 
-    if (name !== 'more filters' && name) {
+    if (name !== "more filters" && name) {
       const [, value] = entries.find(([key]) => key === name);
       return value;
     } else {
@@ -35,11 +46,13 @@ const Modal = ({ isOpen, name, selectedFilters }) => {
   const renderForDesktop = () => {
     return (
       <>
-        <ButtonsBlock
-          buttonsArray={filterItems}
-          internalSelectedFilters={internalSelectedFilters}
-          setInternalSelectedFilters={setInternalSelectedFilters}
-        />
+        {internalSelectedFilters && (
+          <ButtonsBlock
+            buttonsArray={filterItems}
+            internalSelectedFilters={internalSelectedFilters}
+            setInternalSelectedFilters={setInternalSelectedFilters}
+          />
+        )}
 
         <CancelButton onClick={() => dispatch(toggleModal({ isOpen: false }))}>
           Cancel
@@ -69,9 +82,9 @@ const Modal = ({ isOpen, name, selectedFilters }) => {
   };
 
   return (
-    <StyledModal onClick={e => e.stopPropagation()}>
+    <StyledModal onClick={(e) => e.stopPropagation()}>
       <h2>{name}</h2>
-      {name === 'more filters' ? renderForMobile() : renderForDesktop()}
+      {name === "more filters" ? renderForMobile() : renderForDesktop()}
     </StyledModal>
   );
 };

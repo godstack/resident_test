@@ -20,9 +20,6 @@ const Modal = () => {
     setInternalSelectedFilters(selectedFilters[name]);
   }, [selectedFilters, name]);
 
-  console.log("internalSelectedFilters", internalSelectedFilters);
-  console.log("selectedFilters[name]", selectedFilters[name]);
-
   const filterItems = useSelector((state) => {
     const entries = Object.entries(state.filters.filtersData);
 

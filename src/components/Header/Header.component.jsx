@@ -19,7 +19,18 @@ export const Header = () => {
   const handleToggleModal = (e, { name, isOpen }) => {
     e.stopPropagation();
 
-    dispatch(toggleModal({ name, isOpen, offsetLeft: e.target.offsetLeft }));
+    const isOverflowWindow = window.innerWidth - 400 - e.target.offsetLeft;
+
+    dispatch(
+      toggleModal({
+        name,
+        isOpen,
+        offsetLeft:
+          isOverflowWindow > 0
+            ? e.target.offsetLeft
+            : e.target.offsetLeft + isOverflowWindow - 30
+      })
+    );
   };
 
   const handleCloseModalOnResize = () => {

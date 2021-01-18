@@ -2,7 +2,6 @@ import React from 'react';
 import { SelectedFilterItem } from '../SelectedFilterItem/SelectedFilterItem.component';
 
 export const SetOfFilters = ({ set }) => {
-  console.log(set);
   return (
     <>
       {set[1].map(item => (

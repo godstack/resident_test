@@ -10,6 +10,8 @@ export const StyledModal = styled.section`
   width: 95%;
   border: 0.125rem solid black;
   height: fit-content;
+  z-index: 10;
+  background: white;
 
   @media (min-width: 1020px) {
     left: ${({ offsetLeft }) => `${offsetLeft}px`};

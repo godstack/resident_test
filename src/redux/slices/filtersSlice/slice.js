@@ -24,10 +24,24 @@ const filtersSlice = createSlice({
       const { filterName, filters } = action.payload;
 
       state.selectedFilters[filterName] = filters;
+    },
+    unselectFilter: (state, action) => {
+      const { filterName, deleteId } = action.payload;
+
+      state.selectedFilters[filterName] = state.selectedFilters[
+        filterName
+      ].filter(item => item.id !== deleteId);
+    },
+    unselectAll: state => {
+      state.selectedFilters = defaultSelectedFilters();
     }
   }
 });
 
 export default filtersSlice.reducer;
 
-export const { setSelectedFilters } = filtersSlice.actions;
+export const {
+  setSelectedFilters,
+  unselectFilter,
+  unselectAll
+} = filtersSlice.actions;

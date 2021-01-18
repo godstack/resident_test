@@ -37,6 +37,28 @@ export const StyledButton = styled.button`
   transition: flex-grow ${duration} ${ease};
   flex-grow: 1;
 
+  box-shadow: 0 0 10px
+    ${({ filterName }) => {
+      switch (filterName) {
+        case 'size':
+          return '#E32636';
+        case 'color':
+          return '#FFFF00';
+        case 'room':
+          return '#A8E4A0';
+        case 'price':
+          return '#FAE7B5';
+        case 'material':
+          return '#ABCDEF';
+        case 'construction':
+          return '#FF00FF';
+        case 'style':
+          return '#649A9E';
+        default:
+          return 'transparent';
+      }
+    }};
+
   &::after {
     content: '';
     display: ${({ isSelected }) => (isSelected ? 'block' : 'none')};

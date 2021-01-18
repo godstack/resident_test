@@ -42,6 +42,7 @@ export const Header = () => {
         {Object.keys(filtersData).map(filterName => (
           <StyledButton
             key={filterName}
+            filterName={filterName}
             onClick={e => handleToggleModal(e, { name: filterName })}
             isSelected={name === filterName}
           >

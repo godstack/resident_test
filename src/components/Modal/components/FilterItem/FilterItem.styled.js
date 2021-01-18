@@ -2,6 +2,14 @@ import styled from 'styled-components';
 import NegativeIcon from 'assets/icons/negative.png';
 import PlusIcon from 'assets/icons/plus.png';
 
+export const StyledFilterItem = styled.div`
+  border-bottom: 1px solid black;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
 export const FilterItemHeader = styled.header`
   display: flex;
   justify-content: space-between;

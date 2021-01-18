@@ -4,6 +4,7 @@ import { GlobalStyles } from './GlobalStyles';
 import { StyledApp } from './App.styled';
 import { Header } from 'components/Header/Header.component';
 import { toggleModal } from 'redux/slices/modalSlice/slice';
+import { Main } from 'components/Main/Main.component';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function App() {
     <StyledApp onClick={handleCloseModal}>
       <GlobalStyles />
       <Header />
+      <Main />
     </StyledApp>
   );
 }

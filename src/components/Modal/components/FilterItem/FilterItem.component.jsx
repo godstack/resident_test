@@ -4,7 +4,8 @@ import {
   FilterName,
   FilterItemHeader,
   Icon,
-  FilterItemBody
+  FilterItemBody,
+  StyledFilterItem
 } from './FilterItem.styled';
 import { ApplyButton } from '../../Modal.styled';
 import { ButtonsBlock } from '../ButtonsBlock/ButtonsBlock.component';
@@ -23,7 +24,7 @@ export const FilterItem = ({ filterName, options, selectedFilters }) => {
   };
 
   return (
-    <div>
+    <StyledFilterItem>
       <FilterItemHeader>
         <FilterName>
           {filterName}{' '}
@@ -50,6 +51,6 @@ export const FilterItem = ({ filterName, options, selectedFilters }) => {
           </ApplyButton>
         </FilterItemBody>
       )}
-    </div>
+    </StyledFilterItem>
   );
 };
